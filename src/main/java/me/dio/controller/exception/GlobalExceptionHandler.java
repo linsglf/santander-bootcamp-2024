@@ -1,7 +1,5 @@
 package me.dio.controller.exception;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,8 +10,6 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<StandardError> illegalArgumentException(IllegalArgumentException e) {
         var error = new StandardError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(), "Unprocessable Entity", e.getMessage(), "/users");
@@ -21,7 +17,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<StandardError> noSuchElementException(NoSuchElementException e) {
+    public ResponseEntity<StandardError> noSuchElementException() {
         var error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Not Found", "Resource ID not found.", "/users");
         return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(error);
     }
