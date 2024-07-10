@@ -8,7 +8,7 @@ RUN apt-get update && \
 # Define variáveis de ambiente
 ENV SPRING_PROFILES_ACTIVE=prd
 ENV GRADLE_VERSION=8.8
-ENV PGHOST=exemplo_host
+ENV PGHOST=dpg-cq71n1lds78s738o3vcg-a.oregon-postgres.render.com
 ENV PGPORT=5432
 ENV PGDATABASE=santanderdb
 ENV PGUSER=linsglf
