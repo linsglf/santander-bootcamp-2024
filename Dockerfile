@@ -1,50 +1,33 @@
-# Etapa de build
-FROM ubuntu:latest AS build
+# Usa a imagem Ubuntu como base
+FROM ubuntu:latest
 
-# Instalação de dependências necessárias
+# Instala dependências necessárias
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk curl && \
-    apt-get clean;
+    apt-get install -y curl unzip openjdk-17-jdk
 
-# Configuração do ambiente Gradle
-ENV GRADLE_HOME /opt/gradle
-ENV GRADLE_VERSION 8.8
-
-# Download e instalação do Gradle
-RUN curl -L https://services.gradle.org/distributions/gradle-8.8-bin.zip -o gradle.zip && \
-    unzip gradle.zip -d /opt && \
-    rm gradle.zip && \
-    ln -s /opt/gradle-8.8 /opt/gradle && \
-    ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle
-
-# Definindo variáveis de ambiente para o banco de dados PostgreSQL
-ENV PGHOST=dpg-cq71n1lds78s738o3vcg-a.oregon-postgres.render.com
+# Define variáveis de ambiente
+ENV GRADLE_VERSION=8.8
+ENV PGHOST=exemplo_host
 ENV PGPORT=5432
 ENV PGDATABASE=santanderdb
-ENV PGUSER=linsglf
-ENV PGPASSWORD=ihwiQljjN4yRvJ440FcccZpfhgASHcHS
+ENV PGUSER=seu_usuario
+ENV PGPASSWORD=sua_senha
 
-# Diretório de trabalho
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copiando arquivos de build
-COPY build.gradle settings.gradle ./
-COPY src ./src
+# Baixa e configura o Gradle 8.8
+RUN curl -L https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -o gradle.zip && \
+    unzip gradle.zip -d /opt && \
+    rm gradle.zip && \
+    ln -s /opt/gradle-${GRADLE_VERSION} /opt/gradle && \
+    ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle
 
-# Executando build com Gradle
-RUN gradle build --no-daemon
+# Copia o JAR da aplicação Spring para o contêiner
+COPY build/libs/*.jar /app/app.jar
 
-# Etapa de runtime
-FROM openjdk:17-jdk-slim
-
-# Diretório de trabalho
-WORKDIR /app
-
-# Copiando artefato da etapa de build
-COPY --from=build /app/build/libs/*.jar app.jar
-
-# Expondo porta
+# Expor a porta 8080
 EXPOSE 8080
 
-# Comando para executar a aplicação Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Comando para executar a aplicação Spring
+CMD ["java", "-jar", "/app/app.jar"]
