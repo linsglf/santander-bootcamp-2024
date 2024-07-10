@@ -6,6 +6,7 @@ RUN apt-get update && \
     apt-get install -y curl unzip openjdk-17-jdk
 
 # Define variáveis de ambiente
+ENV SPRING_PROFILES_ACTIVE=prd
 ENV GRADLE_VERSION=8.8
 ENV PGHOST=exemplo_host
 ENV PGPORT=5432
