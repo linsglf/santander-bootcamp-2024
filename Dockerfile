@@ -10,8 +10,8 @@ ENV GRADLE_VERSION=8.8
 ENV PGHOST=exemplo_host
 ENV PGPORT=5432
 ENV PGDATABASE=santanderdb
-ENV PGUSER=seu_usuario
-ENV PGPASSWORD=sua_senha
+ENV PGUSER=linsglf
+ENV PGPASSWORD=ihwiQljjN4yRvJ440FcccZpfhgASHcHS
 
 # Define o diretório de trabalho
 WORKDIR /app
