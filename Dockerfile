@@ -11,18 +11,18 @@ ENV GRADLE_HOME /opt/gradle
 ENV GRADLE_VERSION 8.8
 
 # Download e instalação do Gradle
-RUN curl -L https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -o gradle.zip && \
+RUN curl -L https://services.gradle.org/distributions/gradle-8.8-bin.zip -o gradle.zip && \
     unzip gradle.zip -d /opt && \
     rm gradle.zip && \
-    ln -s /opt/gradle-${GRADLE_VERSION} /opt/gradle && \
+    ln -s /opt/gradle-8.8 /opt/gradle && \
     ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle
 
 # Definindo variáveis de ambiente para o banco de dados PostgreSQL
 ENV PGHOST dpg-cq71n1lds78s738o3vcg-a.oregon-postgres.render.com
 ENV PGPORT 5432
 ENV PGDATABASE santanderdb
-ENV PGUSER seu_usuario
-ENV PGPASSWORD sua_senha
+ENV PGUSER linsglf
+ENV PGPASSWORD ihwiQljjN4yRvJ440FcccZpfhgASHcHS
 
 # Diretório de trabalho
 WORKDIR /app
