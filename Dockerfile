@@ -18,11 +18,11 @@ RUN curl -L https://services.gradle.org/distributions/gradle-8.8-bin.zip -o grad
     ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle
 
 # Definindo variáveis de ambiente para o banco de dados PostgreSQL
-ENV PGHOST dpg-cq71n1lds78s738o3vcg-a.oregon-postgres.render.com
-ENV PGPORT 5432
-ENV PGDATABASE santanderdb
-ENV PGUSER linsglf
-ENV PGPASSWORD ihwiQljjN4yRvJ440FcccZpfhgASHcHS
+ENV PGHOST=dpg-cq71n1lds78s738o3vcg-a.oregon-postgres.render.com
+ENV PGPORT=5432
+ENV PGDATABASE=santanderdb
+ENV PGUSER=linsglf
+ENV PGPASSWORD=ihwiQljjN4yRvJ440FcccZpfhgASHcHS
 
 # Diretório de trabalho
 WORKDIR /app
